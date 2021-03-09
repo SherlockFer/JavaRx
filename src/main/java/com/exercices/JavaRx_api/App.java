@@ -47,11 +47,15 @@ public class App
     	BackerConsumerSubscription backerConsumerSubscription2 = new BackerConsumerSubscription(backerPublisher, consumerSubscriber2);
     	consumerSubscriber2.setSubscription(backerConsumerSubscription2);
     	
+    		//emiting the items from its underlying Flowable to its subscribers
+    		//the publisher keep producing bread, and the subcriber is consuming one by one
+    		//this is under backpressure (temporal caching to avoid overloading)
     	new Thread(() -> {
     		connectableFlowable.connect();
     		}).start();
     	
-    	consumerSubscriber1.subscription.request(1);
+//    	consumerSubscriber1.getSubscription().request(10);
+    	consumerSubscriber2.getSubscription().request(1);
     	
     }
 }

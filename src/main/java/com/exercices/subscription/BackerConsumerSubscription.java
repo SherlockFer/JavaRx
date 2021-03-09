@@ -22,6 +22,8 @@ public class BackerConsumerSubscription implements Subscription{
 	public void request(long n) {
 		System.out.println("Loaves requested= "+n);
 		Bread loaf;
+		//if you request 10 loafs, it will process the loaf and send to the subscriber
+		//It means the subscriber is letting known when the subscriber needs loafs.
 		if(publisher != null && subscriber != null && (loaf = publisher.makeBread()) != null) {
 			for (int i = 0; i < n; i++) {
 				subscriber.onNext(loaf);
